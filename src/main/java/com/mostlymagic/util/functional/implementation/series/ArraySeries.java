@@ -102,10 +102,12 @@ public final class ArraySeries<T> extends AbstractSeries<T>{
 
     @Override
     public Series<T> subSequence(final int from, final int to){
+        final int effectiveTo =
+            to == END ? store.length : Math.min(to, store.length);
         Check.gte(from, 0, "From ({0}) may not be negative", from);
-        Check.lte(from, to, "From ({0}) must be less or equal to To ({1})",
-            from, to);
-        return clone(Arrays.copyOfRange(store, from, to));
+        Check.lte(from, effectiveTo,
+            "From ({0}) must be less or equal to To ({1})", from, to);
+        return clone(Arrays.copyOfRange(store, from, effectiveTo));
     }
 
 }

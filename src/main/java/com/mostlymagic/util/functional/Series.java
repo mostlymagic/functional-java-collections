@@ -11,7 +11,7 @@ import com.mostlymagic.util.functional.mixin.view.ListView;
 
 public interface Series<E> extends Gathering<E>, Inserting<Series<E>, E>,
     Deleting<Series<E>, E>, Filtering<Series<E>, E>, ListView<E>,
-    Reversing<Series<E>>, Sequencing<Series<E>>, ArrayView<E>
+    Reversing<Series<E>>, Sequencing<Series<E>, E>, ArrayView<E>
 
 {
 

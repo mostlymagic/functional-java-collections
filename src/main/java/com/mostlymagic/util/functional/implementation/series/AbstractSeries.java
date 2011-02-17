@@ -234,4 +234,15 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
         return (Series<O>) clone((E[]) Arrays.copyOf(data, offset));
     }
 
+    @Override
+    public E head(){
+        final Iterator<E> iterator = iterator();
+        return iterator.hasNext() ? iterator.next() : null;
+    }
+
+    @Override
+    public Series<E> tail(){
+        return subSequence(1, END);
+    }
+
 }

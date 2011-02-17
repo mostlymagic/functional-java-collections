@@ -146,6 +146,11 @@ public class ArraySeriesTest{
                 .subSequence(5, 19)
                 .subSequence(0, 2);
         assertEquals(ArraySeries.of(6, 7), subSequence);
+        assertEquals(subSequence.subSequence(0, subSequence.size() + 10),
+            subSequence);
+        final Series<Integer> sequence = ArraySeries.of(1, 2, 3, 4, 5, 6, 7);
+        assertEquals(sequence.head(), Integer.valueOf(1));
+        assertEquals(sequence.tail(), ArraySeries.of(2, 3, 4, 5, 6, 7));
 
     }
 
