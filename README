@@ -1,0 +1,26 @@
+A functional replacement for parts of the Java Collections library.
+
+All implementations must be immutable and provide fluent interfaces to create modified versions.
+
+Currently the interfaces supported are:
+
+- Gathering (equivalent to Collection)
+- Series (equivalent to List)
+
+And the first sample implementation is
+
+- ArraySeries (equivalent to ArrayList)
+
+Sample code (taken from ArraySeriesTest.java):
+
+    final Series<Integer> original = ArraySeries.of(3, 4, 5);
+    final Series<Integer> clone =
+        original
+            .prependArray(1, 2)
+            .appendArray(9, 10)
+            .insertCollection(5, Arrays.asList(6, 7, 8))
+            .removeGathering(ArraySeries.of(6, 7, 8))
+            .removeArray(9, 10)
+            .deleteItems(0, 1);
+    assertEquals(original, clone);
+
