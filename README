@@ -7,9 +7,10 @@ Currently the interfaces supported are:
 - Gathering (equivalent to Collection)
 - Series (equivalent to List)
 
-And the first sample implementation is
+Two implementations exist:
 
 - ArraySeries (equivalent to ArrayList)
+- HeadTailSeries (equivalent to the lists found in functional Languages)
 
 Sample code (taken from ArraySeriesTest.java):
 
