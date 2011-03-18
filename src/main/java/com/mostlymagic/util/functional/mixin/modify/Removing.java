@@ -8,7 +8,7 @@ public interface Removing<T, E> {
 
     T remove(E item);
 
-    T removeArray(E... items);
+    T removeAll(E... items);
 
     T removeCollection(Collection<E> items);
 

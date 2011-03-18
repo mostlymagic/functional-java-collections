@@ -8,7 +8,7 @@ public interface Inserting<T, E> extends Adding<T, E>{
 
     T insert(int position, E item);
 
-    T insertArray(int position, E... items);
+    T insertAll(int position, E... items);
 
     T insertCollection(int position, Collection<E> items);
 
@@ -16,7 +16,7 @@ public interface Inserting<T, E> extends Adding<T, E>{
 
     T append(E item);
 
-    T appendArray(E... items);
+    T appendAll(E... items);
 
     T appendCollection(Collection<E> items);
 
@@ -24,7 +24,7 @@ public interface Inserting<T, E> extends Adding<T, E>{
 
     T prepend(E item);
 
-    T prependArray(E... items);
+    T prependAll(E... items);
 
     T prependCollection(Collection<E> items);
 

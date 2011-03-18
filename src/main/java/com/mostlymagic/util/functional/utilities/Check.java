@@ -4,6 +4,11 @@ import java.text.MessageFormat;
 
 public class Check{
 
+    public static void notNull(final Object value, final Object... messageData){
+        that(value != null, messageData);
+
+    }
+
     public static void gte(final int value,
         final int reference,
         final Object... messageData){
@@ -58,6 +63,12 @@ public class Check{
         final int reference,
         final Object... messageData){
         that(i < reference, messageData);
+    }
+
+    public static void eq(final int i,
+        final int reference,
+        final Object... messageData){
+        that(i == reference, messageData);
     }
 
 }

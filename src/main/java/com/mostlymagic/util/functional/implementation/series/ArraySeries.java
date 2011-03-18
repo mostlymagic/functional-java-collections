@@ -62,7 +62,7 @@ public final class ArraySeries<T> extends AbstractSeries<T>{
     }
 
     @Override
-    public Series<T> insertArray(final int position, final T... items){
+    public Series<T> insertAll(final int position, final T... items){
         Check.gte(position, END,
             "Negative numbers lower than -1 are not allowed");
         Check.lte(position, store.length,
@@ -73,13 +73,13 @@ public final class ArraySeries<T> extends AbstractSeries<T>{
     }
 
     @Override
-    public Series<T> deleteItems(final int... positions){
+    public Series<T> deleteItemOffsets(final int... positions){
         return new ArraySeries<T>(ArrayHelper.removeArrayOffsets(store,
             positions));
     }
 
     @Override
-    public Series<T> removeArray(final T... items){
+    public Series<T> removeAll(final T... items){
         return new ArraySeries<T>(ArrayHelper.removeArrayItems(store, items));
     }
 
@@ -108,6 +108,33 @@ public final class ArraySeries<T> extends AbstractSeries<T>{
         Check.lte(from, effectiveTo,
             "From ({0}) must be less or equal to To ({1})", from, to);
         return clone(Arrays.copyOfRange(store, from, effectiveTo));
+    }
+
+    @Override
+    public Series<T> replace(final T item, final T replacement){
+        final int index = indexOf(item);
+        if(index < 0){
+            return this;
+        }
+        final T[] newStore = Arrays.copyOf(store, store.length);
+        newStore[index] = replacement;
+        return clone(newStore);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public Series<T> replaceAll(final T item, final T replacement){
+        final List<T> list = asList();
+
+        int index = list.indexOf(item);
+        if(index < 0){
+            return this;
+        }
+        while(index >= 0){
+            list.set(index, replacement);
+            index = list.indexOf(item);
+        }
+        return clone((T[]) list.toArray());
     }
 
 }

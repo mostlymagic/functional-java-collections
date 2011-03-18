@@ -1,5 +1,6 @@
 package com.mostlymagic.util.functional.utilities;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import com.mostlymagic.util.functional.Gathering;
@@ -34,6 +35,17 @@ public final class Converter{
             result = ArrayHelper.createArrayFromIterable(gathering.asIterable());
         }
         return result;
+    }
+
+    public static <T> Collection<T> iterableToCollection(final Iterable<T> input){
+        if(input instanceof Collection<?>){
+            return (Collection<T>) input;
+        }
+        final Collection<T> coll = new ArrayList<T>();
+        for(final T t : input){
+            coll.add(t);
+        }
+        return coll;
     }
 
 }

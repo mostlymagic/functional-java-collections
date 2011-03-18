@@ -84,7 +84,7 @@ public final class ArrayHelper{
 
     }
 
-    private static int[] createUniqueSortedCopy(final int[] positions){
+    public static int[] createUniqueSortedCopy(final int[] positions){
         final int[] copiedPositions =
             Arrays.copyOf(positions, positions.length);
         Arrays.sort(copiedPositions);

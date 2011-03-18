@@ -22,7 +22,7 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
 
     @Override
     public Series<E> addArray(final E... items){
-        return appendArray(items);
+        return appendAll(items);
     }
 
     @Override
@@ -41,8 +41,8 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
     }
 
     @Override
-    public Series<E> appendArray(final E... items){
-        return insertArray(END, items);
+    public Series<E> appendAll(final E... items){
+        return insertAll(END, items);
     }
 
     @Override
@@ -63,12 +63,12 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
     protected abstract Series<E> clone(E[] data);
 
     @Override
-    public Series<E> deleteItem(final int position){
-        return deleteItems(new int[] { position });
+    public Series<E> deleteItemOffset(final int position){
+        return deleteItemOffsets(new int[] { position });
     }
 
     @Override
-    public abstract Series<E> deleteItems(final int... positions);
+    public abstract Series<E> deleteItemOffsets(final int... positions);
 
     @Override
     public boolean equals(final Object obj){
@@ -117,22 +117,22 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
 
     @Override
     public Series<E> insert(final int position, final E item){
-        return insertArray(position, Converter.objectToArray(item));
+        return insertAll(position, Converter.objectToArray(item));
     }
 
     @Override
-    public abstract Series<E> insertArray(final int position, final E... items);
+    public abstract Series<E> insertAll(final int position, final E... items);
 
     @Override
     public Series<E> insertCollection(final int position,
         final Collection<E> items){
-        return insertArray(position, Converter.collectionToArray(items));
+        return insertAll(position, Converter.collectionToArray(items));
     }
 
     @Override
     public Series<E> insertGathering(final int position,
         final Gathering<E> items){
-        return insertArray(position, Converter.gatheringToArray(items));
+        return insertAll(position, Converter.gatheringToArray(items));
     }
 
     @Override
@@ -161,8 +161,8 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
     }
 
     @Override
-    public Series<E> prependArray(final E... items){
-        return insertArray(0, items);
+    public Series<E> prependAll(final E... items){
+        return insertAll(0, items);
     }
 
     @Override
@@ -177,20 +177,20 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
 
     @Override
     public Series<E> remove(final E item){
-        return removeArray(Converter.objectToArray(item));
+        return removeAll(Converter.objectToArray(item));
     }
 
     @Override
-    public abstract Series<E> removeArray(final E... items);
+    public abstract Series<E> removeAll(final E... items);
 
     @Override
     public Series<E> removeCollection(final Collection<E> items){
-        return removeArray(Converter.collectionToArray(items));
+        return removeAll(Converter.collectionToArray(items));
     }
 
     @Override
     public Series<E> removeGathering(final Gathering<E> items){
-        return removeArray(Converter.gatheringToArray(items));
+        return removeAll(Converter.gatheringToArray(items));
     }
 
     @Override
@@ -243,6 +243,40 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
     @Override
     public Series<E> tail(){
         return subSequence(1, END);
+    }
+
+    @Override
+    public boolean contains(final E item){
+        return asList().contains(item);
+    }
+
+    @Override
+    public boolean containsAll(final Iterable<E> items){
+        return asList().containsAll(Converter.iterableToCollection(items));
+    }
+
+    @Override
+    public int indexOf(final E item){
+        return asList().indexOf(item);
+    }
+
+    @Override
+    public int[] indexesOf(final E item){
+        Series<E> current = this;
+        final int[] offsets = new int[size()];
+        int currOffset = 0, currArrayOffset = 0;
+        while((currOffset = current.indexOf(item)) >= 0){
+            offsets[currArrayOffset++] = currOffset;
+            current = current.subSequence(currOffset, END);
+        }
+        return Arrays.copyOfRange(offsets, 0, currOffset);
+    }
+
+    @Override
+    public int lastIndexOf(final E item){
+        final int reverseIndex = reverse().indexOf(item);
+        return reverseIndex > 0 ? size() - reverseIndex : reverseIndex;
+
     }
 
 }

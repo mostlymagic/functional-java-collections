@@ -4,14 +4,17 @@ import com.mostlymagic.util.functional.helper.Function;
 import com.mostlymagic.util.functional.mixin.modify.Deleting;
 import com.mostlymagic.util.functional.mixin.modify.Filtering;
 import com.mostlymagic.util.functional.mixin.modify.Inserting;
+import com.mostlymagic.util.functional.mixin.modify.Replacing;
 import com.mostlymagic.util.functional.mixin.modify.Reversing;
 import com.mostlymagic.util.functional.mixin.modify.Sequencing;
+import com.mostlymagic.util.functional.mixin.util.Indexing;
 import com.mostlymagic.util.functional.mixin.view.ArrayView;
 import com.mostlymagic.util.functional.mixin.view.ListView;
 
 public interface Series<E> extends Gathering<E>, Inserting<Series<E>, E>,
     Deleting<Series<E>, E>, Filtering<Series<E>, E>, ListView<E>,
-    Reversing<Series<E>>, Sequencing<Series<E>, E>, ArrayView<E>
+    Reversing<Series<E>>, Sequencing<Series<E>, E>, ArrayView<E>, Indexing<E>,
+    Replacing<Series<E>, E>
 
 {
 
