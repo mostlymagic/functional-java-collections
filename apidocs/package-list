@@ -1,0 +1,7 @@
+com.mostlymagic.util.functional
+com.mostlymagic.util.functional.helper
+com.mostlymagic.util.functional.implementation.series
+com.mostlymagic.util.functional.mixin.modify
+com.mostlymagic.util.functional.mixin.util
+com.mostlymagic.util.functional.mixin.view
+com.mostlymagic.util.functional.utilities
