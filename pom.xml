@@ -4,7 +4,7 @@
 
 	<groupId>com.mostlymagic.util</groupId>
 	<artifactId>functional-java-collections</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 
 	<name>Functional Java Collections</name>
 
