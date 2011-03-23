@@ -2,11 +2,15 @@ package com.mostlymagic.util.functional.utilities;
 
 import java.text.MessageFormat;
 
-public class Check{
+/**
+ * Assertion helper class.
+ * 
+ * @author Sean Patrick Floyd
+ */
+public final class Check{
 
     public static void notNull(final Object value, final Object... messageData){
         that(value != null, messageData);
-
     }
 
     public static void gte(final int value,

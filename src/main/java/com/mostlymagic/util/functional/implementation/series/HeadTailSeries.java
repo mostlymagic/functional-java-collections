@@ -19,33 +19,8 @@ import com.mostlymagic.util.functional.utilities.IteratorHelper;
 
 public class HeadTailSeries<E> extends AbstractSeries<E>{
 
-    private class DescendingIterator implements Iterator<E>{
-
-        private HeadTailSeries<E> current = HeadTailSeries.this;
-
-        @Override
-        public boolean hasNext(){
-            return current != null;
-        }
-
-        @Override
-        public E next(){
-            if(current == null){
-                throw new IndexOutOfBoundsException();
-            }
-            final E item = current.head;
-            current = current.tail;
-            return item;
-        }
-
-        @Override
-        public void remove(){
-            throw new UnsupportedOperationException();
-        }
-
-    }
-
-    private static final Series<Object> EMPTY = new AbstractSeries<Object>(){
+    private static final class EmptyHeadTailSeries extends
+        AbstractSeries<Object>{
 
         @Override
         public List<Object> asList(){
@@ -113,8 +88,35 @@ public class HeadTailSeries<E> extends AbstractSeries<E>{
             final Object replacement){
             return this;
         }
+    }
 
-    };
+    private class DescendingIterator implements Iterator<E>{
+
+        private HeadTailSeries<E> current = HeadTailSeries.this;
+
+        @Override
+        public boolean hasNext(){
+            return current != null;
+        }
+
+        @Override
+        public E next(){
+            if(current == null){
+                throw new IndexOutOfBoundsException();
+            }
+            final E item = current.head;
+            current = current.tail;
+            return item;
+        }
+
+        @Override
+        public void remove(){
+            throw new UnsupportedOperationException();
+        }
+
+    }
+
+    private static final Series<Object> EMPTY = new EmptyHeadTailSeries();
 
     public static <T> Series<T> empty(){
         @SuppressWarnings("unchecked")

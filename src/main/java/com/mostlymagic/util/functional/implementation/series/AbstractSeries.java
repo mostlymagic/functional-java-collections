@@ -8,10 +8,12 @@ import com.mostlymagic.util.functional.Gathering;
 import com.mostlymagic.util.functional.Series;
 import com.mostlymagic.util.functional.helper.Function;
 import com.mostlymagic.util.functional.helper.Predicate;
+import com.mostlymagic.util.functional.implementation.gathering.AbstractGathering;
 import com.mostlymagic.util.functional.mixin.view.IterableView;
 import com.mostlymagic.util.functional.utilities.Converter;
 
-public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
+public abstract class AbstractSeries<E> extends AbstractGathering<E> implements
+    Series<E>, Iterable<E>{
 
     protected static final int END = -1;
 
@@ -133,26 +135,6 @@ public abstract class AbstractSeries<E> implements Series<E>, Iterable<E>{
     public Series<E> insertGathering(final int position,
         final Gathering<E> items){
         return insertAll(position, Converter.gatheringToArray(items));
-    }
-
-    @Override
-    public String join(){
-        return join(" ");
-    }
-
-    @Override
-    public String join(final String separator){
-
-        final Iterator<E> iter = iterator();
-        final StringBuilder sb = new StringBuilder();
-        if(iter.hasNext()){
-            sb.append(iter.next());
-            while(iter.hasNext()){
-                sb.append(separator).append(iter.next());
-            }
-        }
-        return sb.toString();
-
     }
 
     @Override
